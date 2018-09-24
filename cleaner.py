@@ -1,5 +1,3 @@
-import pickle
-
 class Cleaner:
     def __init__(self, data):
         self.data = data
@@ -53,6 +51,8 @@ class Cleaner:
         return self.obj
 
 if __name__ == '__main__':
+    import pickle
+
     with open('dump.pkl', 'rb') as f:
         data = pickle.load(f)
 

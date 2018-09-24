@@ -8,7 +8,7 @@ from cleaner import Cleaner
 class Scraper():
     def __init__(self):
         self.url = "https://needsupply.com/mens/clothing?p='1'"
-        self.driver_path = './chromedriver.exe'
+        self.driver_path = './chromedriver'
         self.driver = webdriver.Chrome(self.driver_path)
         self.product_links = []
         self.df = None
