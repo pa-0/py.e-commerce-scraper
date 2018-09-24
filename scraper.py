@@ -3,7 +3,9 @@ import pandas
 import time
 import pickle
 
-class Scraper:
+from cleaner import Cleaner
+
+class Scraper():
     def __init__(self):
         self.url = "https://needsupply.com/mens/clothing?p='1'"
         self.driver_path = './chromedriver.exe'
@@ -30,11 +32,7 @@ class Scraper:
             print(tag.get_attribute('src'))
             self.product_object["thumbnail-{}".format(i)] = tag.get_attribute('src')
 
-
         print("Product thumbs: {}".format(element))
-
-        # write product thumbs to object
-        # ul li a img 
 
 
     def _get_sizing_info(self):
@@ -42,14 +40,12 @@ class Scraper:
         sizing_element = self.driver.find_elements_by_class_name('sizing')[0]
 
         unclean_sizing_element = sizing_element.get_attribute('innerHTML')
+        
+        cc = Cleaner(unclean_sizing_element)
+        cc.start()
 
-        with open('dump.pkl', 'wb') as f:
-            pickle.dump(unclean_sizing_element, f)
-
-        print(unclean_sizing_element.split('</br>'))
-
-
-        print('SIZING TABLE', element.get_attribute('innerHTML'))
+        for k, v in cc.obj:
+            self.product_object[k] = v
 
 
     def _build_dataframe(self):
