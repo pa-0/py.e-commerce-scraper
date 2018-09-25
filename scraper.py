@@ -60,6 +60,7 @@ class Scraper():
         """
         if not row:
             row = self.write_row
+            self.write_row = []
 
         csv_file = 'data.csv'
         with open(csv_file, mode='a') as f:
